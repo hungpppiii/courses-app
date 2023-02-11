@@ -5,6 +5,7 @@ const {
   engine
 } = require("express-handlebars");
 const app = express();
+const route = require('./routes/index')
 app.use(morgan("combined"));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,8 +17,10 @@ app.engine("hbs", engine({
 app.set("view engine", "hbs");
 app.set('views', path.join(__dirname, 'resources/views'))
 
+route(app);
+
 const port = 3000;
-app.get("/", (req, res) => res.render('home'));
+
 app.listen(port, () =>
   console.log(`app listening at http://localhost:${port}`)
 );
