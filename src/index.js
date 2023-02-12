@@ -35,4 +35,5 @@ const abc = {
   d: 'dd',
   dfsdj: 'fdsklf',
   "dkjsl": 'dsfkjkl',
+  'fdskj': "fsldkfjlk"
 };
