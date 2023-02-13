@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 const app = express();
 const route = require('./routes/index');
+const connect = require('./config/db');
+
+// use morgan to log HTTP request
 app.use(morgan('combined'));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,23 +19,16 @@ app.engine(
     }),
 );
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
+// config router
 route(app);
+
+// connect database
+connect();
 
 const port = 3000;
 
 app.listen(port, () =>
     console.log(`app listening at http://localhost:${port}`),
 );
-
-const abc = {
-    a: 1,
-    b: 2,
-    c: 3,
-    d: 'dd',
-    dfsdj: 'fdsklf',
-    dkjsl: 'dsfkjkl',
-    fdskj: 'fsldkfjlk',
-    djslfkj: 'fdskljf',
-};
