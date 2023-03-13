@@ -1,4 +1,7 @@
-<div class='mx-4'>
+<div class='mx-4 mt-4'>
+  <h2>Danh sách khóa học</h2>
+  <a href="/me/deleted/courses">Các khóa học đã xóa</a>
+  
   <table class='table'>
     <thead>
       <tr>
@@ -27,6 +30,14 @@
               data-bs-target='#confirmDeleteModal'
               data-bs-id='{{this._id}}'
             >Xóa</a></td>
+        </tr>
+
+        {{ else }}
+        <tr>
+          <td colspan="5" class="text-center">
+            Bạn chưa đăng khóa học nào !!!
+            <a href="/course/create">Đăng khóa học</a>
+          </td>
         </tr>
       {{/each}}
     </tbody>
@@ -57,7 +68,7 @@
           ></button>
         </div>
         <div class='modal-body'>
-          <div class='content'>Bạn có đồng ý hủy khóa học không</div>
+          <div class='content'>Bạn có đồng ý xóa khóa học không</div>
         </div>
         <div class='modal-footer'>
           <button type='submit' class='btn btn-primary'>Đồng ý</button>

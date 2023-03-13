@@ -1,7 +1,7 @@
 const Course = require('../models/Course');
 
 class SiteController {
-    // GET
+    // [GET] /
     index(req, res, next) {
         Course.find({})
             .lean()
@@ -14,7 +14,8 @@ class SiteController {
             .catch(next);
     }
 
-    search(req, res) {
+    // [GET] /:slug
+    search(req, res, next) {
         res.render('search');
     }
 }
