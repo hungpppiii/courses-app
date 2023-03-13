@@ -22,11 +22,63 @@
               class='btn btn-link'
             >Sửa</a></td>
           <td><a
-              href='/course/{{this._id}}/delete'
               class='btn btn-link'
+              data-bs-toggle='modal'
+              data-bs-target='#confirmDeleteModal'
+              data-bs-id='{{this._id}}'
             >Xóa</a></td>
         </tr>
       {{/each}}
     </tbody>
   </table>
 </div>
+
+{{! Confirm delete course }}
+
+<!-- Modal -->
+<div
+  class='modal fade'
+  id='confirmDeleteModal'
+  tabindex='-1'
+  aria-labelledby='confirmDeleteModalLabel'
+  aria-hidden='true'
+>
+  <div class='modal-dialog'>
+    <form method="post" id="form-delete">
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <h1 class='modal-title fs-5' id='confirmDeleteModalLabel'>Xác nhận xóa
+            khóa học</h1>
+          <button
+            type='button'
+            class='btn-close'
+            data-bs-dismiss='modal'
+            aria-label='Close'
+          ></button>
+        </div>
+        <div class='modal-body'>
+          <div class='content'>Bạn có đồng ý hủy khóa học không</div>
+        </div>
+        <div class='modal-footer'>
+          <button type='submit' class='btn btn-primary'>Đồng ý</button>
+          <button
+            type='button'
+            class='btn btn-secondary'
+            data-bs-dismiss='modal'
+          >Hủy</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const confirmDeleteModal = document.getElementById('confirmDeleteModal')
+  confirmDeleteModal.addEventListener('show.bs.modal', event => { 
+    const button = event.relatedTarget;
+    console.log(button)
+    const courseID = button.getAttribute('data-bs-id'); 
+    const formDelete = confirmDeleteModal.querySelector('#form-delete');
+    formDelete.setAttribute("action", `/course/${courseID}?_method=DELETE`);
+  })
+</script>
