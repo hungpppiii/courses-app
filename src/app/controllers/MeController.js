@@ -4,9 +4,8 @@ const moment = require('moment');
 class MeController {
     // [GET] /me/stored/courses
     storedCourses(req, res, next) {
-        Course.find({})
-            .lean()
-            .then((courses) => {
+        Promise.all([Course.find({}).lean(), Course.countDeleted({}).lean()])
+            .then(([courses, deletedCount]) => {
                 courses.forEach((course) => {
                     course.createdAt = moment(course.createdAt).format(
                         'DD-MM-YYYY',
@@ -14,6 +13,7 @@ class MeController {
                 });
                 res.render('me/stored-courses', {
                     courses: courses,
+                    deletedCount,
                 });
             })
             .catch(next);

@@ -92,6 +92,25 @@ class CourseController {
             })
             .catch((error) => {});
     }
+
+    // [POST] /course/handle-form-action
+    handleFormAction(req, res, next) {
+        switch (req.body.action) {
+            case 'delete':
+                {
+                    Course.delete({
+                        _id: {
+                            $in: req.body.courseIds,
+                        },
+                    })
+                        .then(() => res.redirect('back'))
+                        .catch((error) => {});
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 module.exports = new CourseController();
