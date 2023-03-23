@@ -21,9 +21,11 @@
       <tr class="align-middle">
         <th scope="col">#</th>
         <th scope='col'>ID</th>
-        <th scope='col'>Tên khóa học</th>
-        <th scope='col'>description</th>
-        <th scope='col'>Thời gian tạo</th>
+        <th scope='col'>
+            {{{sortable 'name' _sort 'Tên khóa học'}}}
+        </th>
+        <th scope='col'>{{{sortable 'description' _sort 'Mô tả'}}}</th>
+        <th scope='col'>{{{sortable 'createdAt' _sort 'Thời gian tạo'}}}</th>
         <th scope='col'></th>
         <th scope='col'></th>
       </tr>

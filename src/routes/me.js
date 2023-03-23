@@ -1,9 +1,10 @@
 const express = require('express');
+const sortMiddleware = require('../app/middlewares/sortMiddleware');
 const router = express.Router();
 
 const meController = require('../app/controllers/MeController');
 
-router.get('/stored/courses', meController.storedCourses);
+router.get('/stored/courses', sortMiddleware, meController.storedCourses);
 router.get('/deleted/courses', meController.deletedCourses);
 
 module.exports = router;
