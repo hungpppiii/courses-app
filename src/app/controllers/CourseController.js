@@ -4,8 +4,8 @@ class CourseController {
     // [GET] /course/:slug
     show(req, res, next) {
         Course.findOne({
-            slug: req.params.slug,
-        })
+                slug: req.params.slug,
+            })
             .lean()
             .then((course) =>
                 res.render('courses/show', {
@@ -48,12 +48,11 @@ class CourseController {
 
     // [PUT] /course/:id
     update(req, res, next) {
-        Course.updateOne(
-            {
-                _id: req.params.id,
-            },
-            req.body,
-        )
+        Course.updateOne({
+                    _id: req.params.id,
+                },
+                req.body,
+            )
             .then(() => {
                 res.redirect('/me/stored/courses');
             })
@@ -63,8 +62,8 @@ class CourseController {
     // [DELETE] /course/:id
     delete(req, res, next) {
         Course.delete({
-            _id: req.params.id,
-        })
+                _id: req.params.id,
+            })
             .then(() => {
                 res.redirect('/me/stored/courses');
             })
@@ -74,8 +73,8 @@ class CourseController {
     // [DELETE] /course/:id/force
     forceDelete(req, res, next) {
         Course.deleteOne({
-            _id: req.params.id,
-        })
+                _id: req.params.id,
+            })
             .then(() => {
                 res.redirect('/me/deleted/courses');
             })
@@ -85,8 +84,8 @@ class CourseController {
     // [PATCH] /course/:id/restore
     restore(req, res, next) {
         Course.restore({
-            _id: req.params.id,
-        })
+                _id: req.params.id,
+            })
             .then(() => {
                 res.redirect('/me/deleted/courses');
             })
@@ -96,19 +95,18 @@ class CourseController {
     // [POST] /course/handle-form-action
     handleFormAction(req, res, next) {
         switch (req.body.action) {
-            case 'delete':
-                {
-                    Course.delete({
+            case 'delete': {
+                Course.delete({
                         _id: {
                             $in: req.body.courseIds,
                         },
                     })
-                        .then(() => res.redirect('back'))
-                        .catch((error) => {});
-                }
-                break;
-            default:
-                break;
+                    .then(() => res.redirect('back'))
+                    .catch((error) => {});
+            }
+            break;
+        default:
+            break;
         }
     }
 }

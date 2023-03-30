@@ -6,11 +6,13 @@
   <table class='table'>
     <thead>
       <tr>
-        <th scope='col'>#</th>
-        <th scope='col'>Tên khóa học</th>
-        <th scope='col'>description</th>
-        <th scope='col'>Thời gian tạo</th>
-        <th scope='col'>Thời gian xóa</th>
+        <th scope='col'>{{sortable '_id' _sort 'ID'}}</th>
+        <th scope='col'>
+            {{sortable 'name' _sort 'Tên khóa học'}}
+        </th>
+        <th scope='col'>{{sortable 'description' _sort 'Mô tả'}}</th>
+        <th scope='col'>{{sortable 'createdAt' _sort 'Thời gian tạo'}}</th>
+        <th scope='col'>{{sortable 'deletedAt' _sort 'Thời gian xóa'}}</th>
         <th scope='col'></th>
         <th scope='col'></th>
       </tr>
@@ -18,7 +20,7 @@
     <tbody>
       {{#each courses}}
         <tr>
-          <th scope='row'>{{sum @index 1}}</th>
+          <th scope='row'>{{this._id}}</th>
           <td>{{this.name}}</td>
           <td>{{this.description}}</td>
           <td>{{this.createdAt}}</td>

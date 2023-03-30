@@ -20,12 +20,12 @@
     <thead>
       <tr class="align-middle">
         <th scope="col">#</th>
-        <th scope='col'>ID</th>
+        <th scope='col'>{{sortable '_id' _sort 'ID'}}</th>
         <th scope='col'>
-            {{{sortable 'name' _sort 'Tên khóa học'}}}
+            {{sortable 'name' _sort 'Tên khóa học'}}
         </th>
-        <th scope='col'>{{{sortable 'description' _sort 'Mô tả'}}}</th>
-        <th scope='col'>{{{sortable 'createdAt' _sort 'Thời gian tạo'}}}</th>
+        <th scope='col'>{{sortable 'description' _sort 'Mô tả'}}</th>
+        <th scope='col'>{{sortable 'createdAt' _sort 'Thời gian tạo'}}</th>
         <th scope='col'></th>
         <th scope='col'></th>
       </tr>
@@ -36,7 +36,7 @@
           <th>
             <input class="form-check-input" name="courseIds" type="checkbox" value="{{this._id}}">
           </th>
-          <th scope="row">{{sum @index 1}}</th>
+          <th scope="row">{{this._id}}</th>
           <td>{{this.name}}</td>
           <td>{{this.description}}</td>
           <td>{{this.createdAt}}</td>
