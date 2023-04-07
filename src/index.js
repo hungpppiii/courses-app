@@ -2,13 +2,14 @@ const express = require('express');
 const methodOverride = require('method-override');
 const path = require('path');
 const morgan = require('morgan');
-const {
-    engine
-} = require('express-handlebars');
+const { engine } = require('express-handlebars');
 const app = express();
 const route = require('./routes/index');
 const connect = require('./config/db');
 const bodyParser = require('body-parser');
+require('dotenv').config({
+    path: path.resolve(__dirname, '../.env'),
+});
 
 // parse application/json
 app.use(bodyParser.json());
@@ -45,7 +46,7 @@ route(app);
 // connect database
 connect();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () =>
     console.log(`app listening at http://localhost:${port}`),

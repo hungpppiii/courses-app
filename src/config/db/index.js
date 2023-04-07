@@ -5,9 +5,9 @@ async function connect() {
         await mongoose
             .connect('mongodb://localhost:27017/learnJs')
             .then(() => console.log('Connected!'));
-        console.log('connect successfully!');
+        console.log('db connect successfully!');
     } catch (error) {
-        console.log('connect failure!');
+        console.log('db connect failure!');
     }
 }
 
