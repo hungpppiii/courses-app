@@ -8,7 +8,6 @@
   },
   "scripts": {
     "beautiful": "lint-staged",
-    "built": "",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node-sass -w ./src/resources/views/scss/ -o ./src/public/css/",
     "start": "nodemon --inspect ./src/index.js",
