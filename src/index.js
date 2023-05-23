@@ -6,10 +6,25 @@ const { engine } = require('express-handlebars');
 const app = express();
 const route = require('./routes/index');
 const connect = require('./config/db');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 require('dotenv').config({
     path: path.resolve(__dirname, '../.env'),
 });
+const config = require('./config');
+var session = require('express-session');
+
+app.use(
+    session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false,
+            maxAge: 24 * 60 * 60,
+        },
+    }),
+);
 
 // parse application/json
 app.use(bodyParser.json());
@@ -40,14 +55,15 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 // config router
 route(app);
 
 // connect database
 connect();
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () =>
-    console.log(`app listening at http://localhost:${port}`),
+app.listen(config.port, () =>
+    console.log(`app listening at http://localhost:${config.port}`),
 );
