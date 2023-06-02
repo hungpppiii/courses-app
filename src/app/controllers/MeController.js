@@ -4,15 +4,10 @@ const moment = require('moment');
 class MeController {
     // [GET] /me/stored/courses
     storedCourses(req, res, next) {
-        const courseQuery = Course.find({});
-
-        if (req.query.hasOwnProperty('_sort')) {
-            courseQuery.sort({
-                [req.query.column]: req.query.type,
-            });
-        }
-
-        Promise.all([courseQuery.lean(), Course.countDeleted({}).lean()])
+        Promise.all([
+            Course.find({}).sortable(req).lean(),
+            Course.countDeleted({}).lean(),
+        ])
             .then(([courses, deletedCount]) => {
                 courses.forEach((course) => {
                     course.createdAt = moment(course.createdAt).format(
@@ -30,6 +25,7 @@ class MeController {
     // [GET] /me/deleted/courses
     deletedCourses(req, res, next) {
         Course.findDeleted({})
+            .sortable(req)
             .lean()
             .then((courses) =>
                 res.render('me/deleted-courses', {

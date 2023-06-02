@@ -5,6 +5,6 @@ const router = express.Router();
 const meController = require('../app/controllers/MeController');
 
 router.get('/stored/courses', sortMiddleware, meController.storedCourses);
-router.get('/deleted/courses', meController.deletedCourses);
+router.get('/deleted/courses', sortMiddleware, meController.deletedCourses);
 
 module.exports = router;

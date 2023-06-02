@@ -4,11 +4,15 @@ const slug = require('mongoose-slug-generator');
 
 const mongoose_delete = require('mongoose-delete');
 
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-const Course = new Schema(
+const Schema = mongoose.Schema;
+
+const CourseSchema = new Schema(
     {
+        _id: {
+            type: Number,
+        },
         name: {
             type: String,
             maxLength: 255,
@@ -31,15 +35,28 @@ const Course = new Schema(
         },
     },
     {
+        _id: false,
         timestamps: true,
     },
 );
 
+CourseSchema.query.sortable = function (req) {
+    if (req.query.hasOwnProperty('_sort')) {
+        const isValidType = ['asc', 'desc'].includes(req.query.type);
+        return this.sort({
+            [req.query.column]: isValidType ? req.query.type : 'desc',
+        });
+    }
+    return this;
+};
+
+// add slug plugin
 mongoose.plugin(slug);
 
-Course.plugin(mongoose_delete, {
+CourseSchema.plugin(AutoIncrement);
+CourseSchema.plugin(mongoose_delete, {
     overrideMethods: 'all',
     deletedAt: true,
 });
 
-module.exports = mongoose.model('Course', Course);
+module.exports = mongoose.model('Course', CourseSchema);
